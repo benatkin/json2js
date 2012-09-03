@@ -1,0 +1,21 @@
+{
+  "name": "json2js",
+  "author": {
+    "name": "Ben Atkin",
+    "email": "ben@benatkin.com",
+    "url": "http://benatkin.com/"
+  },
+  "description": "converts json to javascript with exports and function expressions",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benatkin/json2js.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "js2json": "*"
+  },
+  "scripts": {
+    "test": "node -e 'require(\"./test\").run()'"
+  }
+}

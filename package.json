@@ -11,7 +11,9 @@
     "type": "git",
     "url": "https://github.com/benatkin/json2js.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "falafel": "*"
+  },
   "devDependencies": {
     "js2json": "*"
   },

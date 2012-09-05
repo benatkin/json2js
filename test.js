@@ -3,6 +3,7 @@ module.exports = {
     this.assert = require('assert');
     this.js2json = require('js2json');
     this.json2js = require('./').init();
+    this.values.example = JSON.stringify(this.values.example, null, 2);
     this.values.exampleFunction = this.values.exampleFunction.join("\n");
   },
   "values": {

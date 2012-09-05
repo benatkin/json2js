@@ -1,56 +1,51 @@
 module.exports = {
   "init": function() {
     this._ready = true;
+    this.falafel = require('falafel');
     return this;
   },
-  "convert": function(jsonValue) {
-    var result = JSON.stringify(jsonValue, null, 2);
+  "convert": function(json) {
     if (! this._ready) {
       this.init();
     }
-    result = this.replaceFunctions(result, jsonValue, 0);
-    return "module.exports = " + result;
-  },
-  "replaceFunctions": function(input, jsonValue, level) {
+    var js = "module.exports = " + json;
     var re = /^function\s*\([^)]*\)\s*{/;
-    var result = input;
-    var i, key, value;
-    if (typeof jsonValue == 'string' && re.test(jsonValue)) {
-      return result.replace(JSON.stringify(jsonValue), this.prepareFunction(jsonValue, level));
-    } else if (typeof jsonValue == 'object') {
-      if (jsonValue.constructor.name == 'Array') {
-        for (i = 0; i < jsonValue.length; i++) {
-          value = jsonValue[i];
-          if (typeof value == 'object' || (typeof value == 'string' && re.test(value))) {
-            result = this.replaceFunctions(result, value, level + 1);
-          }
-        }
-        return result;
-      } else {
-        for (key in jsonValue) {
-          value = jsonValue[key];
-          if (typeof value == 'object' || (typeof value == 'string' && re.test(value))) {
-            result = this.replaceFunctions(result, value, level + 1);
-          }
-        }
-        return result;
+    var root = this;
+    var replaced = this.falafel(js, function(node) {
+      if (node.type == 'Literal' && typeof node.value == 'string' && re.test(node.value)) {
+        root.replaceFunction.call(root, node, js);
       }
+    }).toString();
+    return replaced;
+  },
+  "replaceFunction": function(node, js) {
+    var lines = node.value.split("\n");
+    if (lines.length >= 3) {
+      var indent = this.findIndentation(node, js);
+      for (var i = 1; i < lines.length; i++) {
+        lines[i] = indent + lines[i];
+      }
+      node.update(lines.join("\n"));
     } else {
-      return result;
+      node.update(node.value);
     }
   },
-  "prepareFunction": function(functionSource, level) {
-    var lines = functionSource.split("\n");
-    var i, j;
-    if (lines.length >= 3) {
-      for (i = 1; i < lines.length; i++) {
-        for (j=0; j < level; j++) {
-          lines[i] = '  ' + lines[i];
-        }
+  "findIndentation": function(node, js) {
+    var start, len, pos;
+    for (start = node.range[0]; start >= 0; start--) {
+      if (js[start] === "\n") {
+        start += 1;
+        break;
       }
-      return lines.join("\n");
-    } else {
-      return functionSource;
     }
+    len = 0;
+    for (pos = start; pos < node.range[0]; pos++) {
+      if (js[pos] === " ") {
+        len += 1;
+      } else {
+        break;
+      }
+    }
+    return js.substr(start, len);
   }
 }

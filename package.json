@@ -6,7 +6,7 @@
     "url": "http://benatkin.com/"
   },
   "description": "converts json to javascript with exports and function expressions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/benatkin/json2js.git"

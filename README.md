@@ -19,8 +19,8 @@ run-example.js:
 ``` javascript
 var json2js = require('json2js')
   , fs = require('fs')
-  , jsonValue = JSON.parse(fs.readFileSync('./example.json', 'utf8'))
-  , js = json2js.convert(jsonValue);
+  , json = fs.readFileSync('./example.json', 'utf8')
+  , js = json2js.convert(json);
 console.log(js);
 ```
 
@@ -33,6 +33,7 @@ module.exports = {
     console.log('Hello, world.');
   }
 }
+
 ```
 
 ## License (MIT)

@@ -22,7 +22,8 @@ module.exports = {
       var js = this.json2js.convert(this.values.example);
       this.assert.ok(!(/"function/.test(js)), 'has function string');
       this.assert.ok(js.indexOf('    console.log') != -1, 'must be indented four spaces');
-      var jsonValue = this.js2json.convert(js);
+      var json = this.js2json.convert(js);
+      var jsonValue = JSON.parse(json);
       this.assert.equal(jsonValue.hello, this.values.exampleFunction);
     }
   },

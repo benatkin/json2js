@@ -4,7 +4,7 @@ expressions.
 Goes with [js2json][js2json] to support modifying CouchApp design
 documents in a single file.
 
-## synopsis
+# synopsis
 
 example.json:
 
@@ -36,7 +36,23 @@ module.exports = {
 
 ```
 
-## License (MIT)
+# cli usage
+
+Installing:
+
+```
+$ npm install -g json
+```
+
+Running:
+
+```
+$ json2js input.json
+```
+
+The js code will be printed to stdout.
+
+# License (MIT)
 
 Copyright (C) 2012 Ben Atkin
 

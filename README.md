@@ -41,7 +41,7 @@ module.exports = {
 Installing:
 
 ```
-$ npm install -g json
+$ npm install -g json2js
 ```
 
 Running:

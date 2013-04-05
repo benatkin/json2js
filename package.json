@@ -7,7 +7,7 @@
   },
   "description": "converts json to javascript with exports and function expressions",
   "bin": "bin.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/benatkin/json2js.git"
